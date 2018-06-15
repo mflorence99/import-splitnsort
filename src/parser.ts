@@ -89,7 +89,7 @@ export class Parser {
       const library = this.externalImports[name];
       stmts.push(`import ${name} = require(${this.quote}${library}${this.quote})${this.semicolon}`);
     });
-    // [5] import 'dode.js'
+    // [5] import 'code.js'
     this.stringImports.sort(this.sortCaseInsensitive).forEach((library, ix) => {
       if (ix === 0)
         stmts.push('');

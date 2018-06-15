@@ -1,8 +1,8 @@
 {
   "name": "import-splitnsort",
   "displayName": "Split'n'Sort TypeScript Imports",
-  "description": "An opinionated import sorter that splits TypeScript imports into one export per import and sorts them.",
-  "version": "0.0.1",
+  "description": "An opinionated extension that splits imports into one export per import and sorts them.",
+  "version": "1.0.0",
   "galleryBanner": {
     "color": "#424242",
     "theme": "dark"

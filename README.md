@@ -1,65 +1,42 @@
-# import-splitnsort README
+# import-splitnsort
 
-This is the README for your extension "import-splitnsort". After writing up a brief description, we recommend including the following sections.
+My first idiosyncratic VS Code extension that perhaps only I will ever use! There are many excellent import sorters available -- [sort-imports](https://marketplace.visualstudio.com/items?itemName=amatiasq.sort-imports) for example but `import-splitnsort` is opinionated:
+
+* imports that reference multiple exports can be *organized* but they can't really be *sorted* without breaking them up
+* if you try to import multiple exports from the same module in one statement, sooner or later you violate the `tslint:line-length` rule; this often hits me with imports from `@angular/core` 
+* multi-export imports don't help you eyeball your imports and disguise their 'weight'
+
+![Split and sort in action](split-in-action.gif)
 
 ## Features
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+Automatically splits and sorts imports on save. You can disable this behavior in the settings and split'n'sort manually.
 
-For example if there is an image subfolder under your extension project workspace:
+* Launch the command palette with `Ctrl+Shift+P` (`Cmd+Shift+P` on Mac)
+* Enter `Split and sort imports`
 
-\!\[feature X\]\(images/feature-x.png\)
+Imports are sorted case-insensitive and broken into 5 categories, in this order:
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
-
-## Requirements
-
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+1. `import * as vscode from 'vscode'; // namespace imports`
+2. `import { ChangeDetectionStrategy } from '@angular/core'; // named imports` 
+3. `import $ from 'JQuery'; // default imports`
+4. `import zip = require('./ZipCodeValidator'); // external imports`
+5. `import 'code.js'; // string imports`
 
 ## Extension Settings
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
-
-For example:
-
-This extension contributes the following settings:
-
-* `myExtension.enable`: enable/disable this extension
-* `myExtension.thing`: set to `blah` to do something
-
-## Known Issues
-
-Calling out known issues can help limit users opening duplicate issues against your extension.
+`import-splitnsave.on-save` enable auto spli on save (default `true`)
 
 ## Release Notes
 
-Users appreciate release notes as you update your extension.
-
 ### 1.0.0
 
-Initial release of ...
+## Credits
 
-### 1.0.1
+Developed by [Mark Florence](https://github.com/mflorence99).
 
-Fixed issue #.
+## Thanks
 
-### 1.1.0
+Many thanks to [sort-imports](https://marketplace.visualstudio.com/items?itemName=amatiasq.sort-imports) for showing the way!
 
-Added features X, Y, and Z.
-
------------------------------------------------------------------------------------------------------------
-
-## Working with Markdown
-
-**Note:** You can author your README using Visual Studio Code.  Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux)
-* Toggle preview (`Shift+CMD+V` on macOS or `Shift+Ctrl+V` on Windows and Linux)
-* Press `Ctrl+Space` (Windows, Linux) or `Cmd+Space` (macOS) to see a list of Markdown snippets
-
-### For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
+Special thanks to [typescript-parser](https://buehler.github.io/node-typescript-parser/) fir a really nice and easy-to-use TypeScript to AST parser.
