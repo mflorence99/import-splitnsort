@@ -1,6 +1,10 @@
-import { Disposable, ExtensionContext, TextDocumentWillSaveEvent, commands, window, workspace } from 'vscode';
-
+import { commands } from 'vscode';
+import { Disposable } from 'vscode';
+import { ExtensionContext } from 'vscode';
 import { Parser } from './parser';
+import { TextDocumentWillSaveEvent } from 'vscode';
+import { window } from 'vscode';
+import { workspace } from 'vscode';
 
 /**
  * import-splitnsort contract

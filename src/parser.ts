@@ -1,5 +1,13 @@
-import { ExternalModuleImport, File, Import, NamedImport, NamespaceImport, StringImport, SymbolSpecifier, TypescriptParser } from 'typescript-parser';
-import { Position, Range } from 'vscode';
+import { ExternalModuleImport } from 'typescript-parser';
+import { File } from 'typescript-parser';
+import { Import } from 'typescript-parser';
+import { NamedImport } from 'typescript-parser';
+import { NamespaceImport } from 'typescript-parser';
+import { Position } from 'vscode';
+import { Range } from 'vscode';
+import { StringImport } from 'typescript-parser';
+import { SymbolSpecifier } from 'typescript-parser';
+import { TypescriptParser } from 'typescript-parser';
 
 /**
  * Parse TypeScript and extract imports
