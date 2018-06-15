@@ -1,26 +1,52 @@
 {
   "name": "import-splitnsort",
-  "displayName": "Split'n'Sort ES6 Imports",
-  "description": "Splits ES6 imports into one export per import and sorts them.",
+  "displayName": "Split'n'Sort TypeScript Imports",
+  "description": "An opinionated import sorter that splits TypeScript imports into one export per import and sorts them.",
   "version": "0.0.1",
+  "galleryBanner": {
+    "color": "#d84a44",
+    "theme": "dark"
+  },
+  "bugs": {
+    "url": "https://github.com/mflorence99/import-splitnsort/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mflorence99/import-splitnsort.git"
+  },
+  "icon": "icon.png",
   "publisher": "mflo999",
   "engines": {
     "vscode": "^1.24.0"
   },
+  "homepage": "https://github.com/mflorence99/import-splitnsort/blob/master/README.md",
+  "license": "MIT",
   "categories": [
-    "Other"
+    "Programming Languages"
   ],
   "activationEvents": [
-    "onCommand:extension.sayHello"
+    "onCommand:extension.import-splitnsort",
+    "onLanguage:typescript",
+    "onLanguage:typescriptreact"
   ],
   "main": "./out/extension",
   "contributes": {
     "commands": [
       {
-        "command": "extension.sayHello",
-        "title": "Hello World"
+        "command": "extension.import-splitnsort",
+        "title": "Split and sort imports"
       }
-    ]
+    ],
+    "configuration": {
+      "title": "Split and sort imports configuration",
+      "properties": {
+        "import-splitnsort.on-save": {
+          "type": "boolean",
+          "default": true,
+          "description": "Automatically split and sort imports on save."
+        }
+      }
+    }
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",
@@ -30,10 +56,14 @@
     "test": "npm run compile && node ./node_modules/vscode/bin/test"
   },
   "devDependencies": {
-    "typescript": "^2.6.1",
-    "vscode": "^1.1.6",
-    "tslint": "^5.8.0",
+    "@types/mocha": "^2.2.42",
     "@types/node": "^7.0.43",
-    "@types/mocha": "^2.2.42"
+    "eslint": "^4.19.1",
+    "tslint": "^5.8.0",
+    "typescript": "^2.6.1",
+    "vscode": "^1.1.6"
+  },
+  "dependencies": {
+    "typescript-parser": "^2.4.0"
   }
 }
