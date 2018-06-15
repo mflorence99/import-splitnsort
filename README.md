@@ -25,7 +25,7 @@ Imports are sorted case-insensitive and broken into 5 categories, in this order:
 
 ## Extension Settings
 
-`import-splitnsave.on-save` enable auto spli on save (default `true`)
+`import-splitnsave.on-save` enable auto split on save (default `true`)
 
 ## Release Notes
 
