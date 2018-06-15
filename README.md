@@ -1,6 +1,6 @@
 # import-splitnsort
 
-My first idiosyncratic VS Code extension that perhaps only I will ever use! There are many excellent import sorters available -- [sort-imports](https://marketplace.visualstudio.com/items?itemName=amatiasq.sort-imports) for example but `import-splitnsort` is opinionated:
+My first, very idiosyncratic VS Code extension that perhaps only I will ever use! There are many excellent import sorters available -- [sort-imports](https://marketplace.visualstudio.com/items?itemName=amatiasq.sort-imports) for example -- but `import-splitnsort` is opinionated:
 
 * imports that reference multiple exports can be *organized* but they can't really be *sorted* without breaking them up
 * if you try to import multiple exports from the same module in one statement, sooner or later you violate the `tslint:line-length` rule; this often hits me with imports from `@angular/core` 
