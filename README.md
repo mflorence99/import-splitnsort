@@ -31,6 +31,8 @@ Imports are sorted case-insensitive and broken into 5 categories, in this order:
 
 ### 1.0.0
 
+Initial release.
+
 ## Credits
 
 Developed by [Mark Florence](https://github.com/mflorence99).
