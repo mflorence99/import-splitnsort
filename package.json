@@ -4,7 +4,7 @@
   "description": "An opinionated import sorter that splits TypeScript imports into one export per import and sorts them.",
   "version": "0.0.1",
   "galleryBanner": {
-    "color": "#d84a44",
+    "color": "#424242",
     "theme": "dark"
   },
   "bugs": {
