@@ -41,4 +41,4 @@ Developed by [Mark Florence](https://github.com/mflorence99).
 
 Many thanks to [sort-imports](https://marketplace.visualstudio.com/items?itemName=amatiasq.sort-imports) for showing the way!
 
-Special thanks to [typescript-parser](https://buehler.github.io/node-typescript-parser/) fir a really nice and easy-to-use TypeScript to AST parser.
+Special thanks to [typescript-parser](https://buehler.github.io/node-typescript-parser/) for a really nice and easy-to-use TypeScript to AST parser.
