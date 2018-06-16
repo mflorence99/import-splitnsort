@@ -2,7 +2,7 @@
   "name": "import-splitnsort",
   "displayName": "Split'n'Sort Imports",
   "description": "An opinionated extension to split and sort imports into one export per import.",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "galleryBanner": {
     "color": "#424242",
     "theme": "dark"

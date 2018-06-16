@@ -2,6 +2,7 @@ import { Disposable } from 'vscode';
 import { ExtensionContext } from 'vscode';
 import { Parser } from './parser';
 import { TextDocumentWillSaveEvent } from 'vscode';
+import { TextEdit } from 'vscode';
 
 import { commands } from 'vscode';
 import { window } from 'vscode';
@@ -38,15 +39,17 @@ function onSave() {
   }
 }
 
-async function splitAndSort() {
-  const parser = new Parser(window.activeTextEditor.document.getText());
-  await parser.parse();
-  const imports = parser.produce();
-  if (imports.length === 0)
-    return;
-  else return window.activeTextEditor.edit(edit => edit.replace(parser.range, imports));
+function splitAndSort() {
+  Parser.makeEdits(window.activeTextEditor.document.getText())
+    .then((edits: TextEdit[]) => {
+      if (edits.length > 0) {
+        const range = edits[0].range;
+        const imports = edits[0].newText;
+        window.activeTextEditor.edit(edit => edit.replace(range, imports));
+      }
+    });
 }
 
 function splitAndSortOnSave(event: TextDocumentWillSaveEvent) {
-  event.waitUntil(Parser.makeEdit(event.document.getText()));
+  event.waitUntil(Parser.makeEdits(event.document.getText()));
 }
