@@ -119,7 +119,7 @@ export class Parser {
     this.stringImports.push(node.libraryName);
   }
 
-  // NOTE: awkward! we have to convert characters from parser int line/character
+  // NOTE: awkward! we have to convert characters from parser into line/character
   private makeRange(start: number,
                     end: number): void {
     let line = 0, character = 0;
