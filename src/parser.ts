@@ -17,7 +17,8 @@ export class Parser {
 
   public defaultImports: Dictionary = { };
   public externalImports: Dictionary = { };
-  public namedImports: Dictionary = { };
+  public namedClassImports: Dictionary = { };
+  public namedFunctionImports: Dictionary = { };
   public namespaceImports: Dictionary = { };
   public stringImports: string[] = [];
 
@@ -68,41 +69,12 @@ export class Parser {
 
   /** Produce sorted import statements */
   produce(): string {
-    const stmts: string[] = [];
-    // [1] import * as vscode from 'vscode'
-    this.sortedNamesIn(this.namespaceImports).forEach((name, ix) => {
-      if (ix === 0)
-        stmts.push('');
-      const library = this.namespaceImports[name];
-      stmts.push(`import * as ${name} from ${this.quote}${library}${this.quote}${this.semicolon}`);
-    });
-    // [2] import { ChangeDetectionStrategy } from '@angular/core'
-    this.sortedNamesIn(this.namedImports).forEach((name, ix) => {
-      if (ix === 0)
-        stmts.push('');
-      const library = this.namedImports[name];
-      stmts.push(`import ${this.braces[0]}${name}${this.braces[1]} from ${this.quote}${library}${this.quote}${this.semicolon}`);
-    });
-    // [3] import $ from 'JQuery'
-    this.sortedNamesIn(this.defaultImports).forEach((name, ix) => {
-      if (ix === 0)
-        stmts.push('');
-      const library = this.defaultImports[name];
-      stmts.push(`import ${name} from ${this.quote}${library}${this.quote}${this.semicolon}`);
-    });
-    // [4] import zip = require('./ZipCodeValidator')
-    this.sortedNamesIn(this.externalImports).forEach((name, ix) => {
-      if (ix === 0)
-        stmts.push('');
-      const library = this.externalImports[name];
-      stmts.push(`import ${name} = require(${this.quote}${library}${this.quote})${this.semicolon}`);
-    });
-    // [5] import 'code.js'
-    this.stringImports.sort(this.sortCaseInsensitive).forEach((library, ix) => {
-      if (ix === 0)
-        stmts.push('');
-      stmts.push(`import ${this.quote}${library}${this.quote}${this.semicolon}`);
-    });
+    const stmts = this.produceNamespace()
+      .concat(this.produceNamedClass())
+      .concat(this.produceNamedFunction())
+      .concat(this.produceDefault())
+      .concat(this.produceExternal())
+      .concat(this.produceString());
     // NOTE: if there are any imports at all, there'll be an initial blank line
     return (stmts.length > 0)? stmts.slice(1).join('\n') : '';
   }
@@ -130,9 +102,12 @@ export class Parser {
     if (node.defaultAlias)
       this.defaultImports[node.defaultAlias] = node.libraryName;
     node.specifiers.forEach((specifier: SymbolSpecifier) => {
+      const initialChar = specifier.specifier[0];
+      const dict = (initialChar === initialChar.toLowerCase())?
+        this.namedFunctionImports : this.namedClassImports;
       if (specifier.alias)
-        this.namedImports[`${specifier.specifier} as ${specifier.alias}`] = node.libraryName;
-      else this.namedImports[specifier.specifier] = node.libraryName;
+        dict[`${specifier.specifier} as ${specifier.alias}`] = node.libraryName;
+      else dict[specifier.specifier] = node.libraryName;
     });
   }
 
@@ -162,6 +137,71 @@ export class Parser {
     // complete range
     epos = new Position(line, character);
     this.range = new Range(spos, epos);
+  }
+
+  private produceDefault(): string[] {
+    const stmts: string[] = [];
+    this.sortedNamesIn(this.defaultImports).forEach((name, ix) => {
+      if (ix === 0)
+        stmts.push('');
+      const library = this.defaultImports[name];
+      stmts.push(`import ${name} from ${this.quote}${library}${this.quote}${this.semicolon}`);
+    });
+    return stmts;
+  }
+
+  private produceExternal(): string[] {
+    const stmts: string[] = [];
+    this.sortedNamesIn(this.externalImports).forEach((name, ix) => {
+      if (ix === 0)
+        stmts.push('');
+      const library = this.externalImports[name];
+      stmts.push(`import ${name} = require(${this.quote}${library}${this.quote})${this.semicolon}`);
+    });
+    return stmts;
+  }
+
+  private produceNamedClass(): string[] {
+    const stmts: string[] = [];
+    this.sortedNamesIn(this.namedClassImports).forEach((name, ix) => {
+      if (ix === 0)
+        stmts.push('');
+      const library = this.namedClassImports[name];
+      stmts.push(`import ${this.braces[0]}${name}${this.braces[1]} from ${this.quote}${library}${this.quote}${this.semicolon}`);
+    });
+    return stmts;
+  }
+
+  private produceNamedFunction(): string[] {
+    const stmts: string[] = [];
+    this.sortedNamesIn(this.namedFunctionImports).forEach((name, ix) => {
+      if (ix === 0)
+        stmts.push('');
+      const library = this.namedFunctionImports[name];
+      stmts.push(`import ${this.braces[0]}${name}${this.braces[1]} from ${this.quote}${library}${this.quote}${this.semicolon}`);
+    });
+    return stmts;
+  }
+
+  private produceNamespace(): string[] {
+    const stmts: string[] = [];
+    this.sortedNamesIn(this.namespaceImports).forEach((name, ix) => {
+      if (ix === 0)
+        stmts.push('');
+      const library = this.namespaceImports[name];
+      stmts.push(`import * as ${name} from ${this.quote}${library}${this.quote}${this.semicolon}`);
+    });
+    return stmts;
+  }
+
+  private produceString(): string[] {
+    const stmts: string[] = [];
+    this.stringImports.sort(this.sortCaseInsensitive).forEach((library, ix) => {
+      if (ix === 0)
+        stmts.push('');
+      stmts.push(`import ${this.quote}${library}${this.quote}${this.semicolon}`);
+    });
+    return stmts;
   }
 
   private sortCaseInsensitive(a, b): number {

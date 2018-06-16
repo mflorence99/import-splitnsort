@@ -1,8 +1,8 @@
 {
   "name": "import-splitnsort",
   "displayName": "Split'n'Sort Imports",
-  "description": "An opinionated extension that splits imports into one export per import and sorts them.",
-  "version": "1.0.0",
+  "description": "An opinionated extension to split and sort imports into one export per import.",
+  "version": "1.0.1",
   "galleryBanner": {
     "color": "#424242",
     "theme": "dark"
@@ -38,12 +38,12 @@
       }
     ],
     "configuration": {
-      "title": "Split and sort imports configuration",
+      "title": "Split'n'sort imports configuration",
       "properties": {
         "import-splitnsort.on-save": {
           "type": "boolean",
           "default": true,
-          "description": "Automatically split and sort imports on save."
+          "description": "Automatically split'n'sort imports on save."
         }
       }
     }

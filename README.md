@@ -2,32 +2,55 @@
 
 My first, very idiosyncratic VS Code extension that perhaps only I will ever use! There are many excellent import sorters available -- [sort-imports](https://marketplace.visualstudio.com/items?itemName=amatiasq.sort-imports) for example -- but `import-splitnsort` is opinionated:
 
-* imports that reference multiple exports can be *organized* but they can't really be *sorted* without breaking them up
+* imports that reference multiple exports can be *organized* but they can't really be *sorted* without splitting them up, one per line
 * if you try to import multiple exports from the same module in one statement, sooner or later you violate the `tslint:line-length` rule; this often hits me with imports from `@angular/core` 
-* multi-export imports don't help you eyeball your imports and disguise their 'weight'
+* multi-export imports don't help you eyeball your imports and they disguise their 'weight' in your code
 
-![Split and sort in action](split-in-action.gif)
+### Before Split'n'Sort
+
+![Before](before.png)
+
+### After Split'n'Sort 
+
+![After](after.png)
 
 ## Features
 
 Automatically splits and sorts imports on save. You can disable this behavior in the settings and split'n'sort manually.
 
-* Launch the command palette with `Ctrl+Shift+P` (`Cmd+Shift+P` on Mac)
-* Enter `Split and sort imports`
+* Launch the command palette with `Ctrl|Cmd+Shift+P`
+* Type `Split and sort imports`
 
-Imports are sorted case-insensitive and broken into 5 categories, in this order:
+Imports are sorted case-sensitive and broken into 6 categories, in this order:
 
-1. `import * as vscode from 'vscode'; // namespace imports`
-2. `import { ChangeDetectionStrategy } from '@angular/core'; // named imports` 
-3. `import $ from 'JQuery'; // default imports`
-4. `import zip = require('./ZipCodeValidator'); // external imports`
-5. `import 'code.js'; // string imports`
+```typescript
+import * as vscode from 'vscode';                        // namespace imports
+
+import { ChangeDetectionStrategy } from '@angular/core'; // named class-like imports
+
+import { map } from 'rxjs/operators';                    // named function-like imports
+
+import $ from 'JQuery';                                  // default imports
+
+import zip = require('./ZipCodeValidator');              // external imports
+
+import 'code.js';                                        // string imports
+```
+
+Of course, it is very rare for any code to use all these different `import` types.
 
 ## Extension Settings
 
-`import-splitnsave.on-save` enable auto split on save (default `true`)
+```json
+// Automatically split and sort imports on save (default true)
+"import-splitnsort.on-save": true
+```
 
 ## Release Notes
+
+### 1.0.1
+
+After eating my own dog food for a while, it became clear that a case-insensitive sort is a Really Bad Idea! Lowercase exports are semantically different to uppercase exports: the former are typically functions and the latter classes. The two are now separated [#1](https://github.com/mflorence99/import-splitnsort/issues/1).
 
 ### 1.0.0
 

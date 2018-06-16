@@ -26,12 +26,12 @@ suite('Parser Tests', () => {
     assert.strictEqual(parser.defaultImports['$'], 'JQuery');
     assert.strictEqual(parser.defaultImports['x'], 'hot-new-module');
     assert.strictEqual(parser.externalImports['zip'], './ZipCodeValidator');
-    assert.strictEqual(parser.namedImports['ChangeDetectionStrategy'], '@angular/core');
-    assert.strictEqual(parser.namedImports['Component'], '@angular/core');
-    assert.strictEqual(parser.namedImports['HostListener'], '@angular/core');
-    assert.strictEqual(parser.namedImports['Input'], '@angular/core');
-    assert.strictEqual(parser.namedImports['debounce as bouncer'], 'ellib');
-    assert.strictEqual(parser.namedImports['y'], 'hot-new-module');
+    assert.strictEqual(parser.namedClassImports['ChangeDetectionStrategy'], '@angular/core');
+    assert.strictEqual(parser.namedClassImports['Component'], '@angular/core');
+    assert.strictEqual(parser.namedClassImports['HostListener'], '@angular/core');
+    assert.strictEqual(parser.namedClassImports['Input'], '@angular/core');
+    assert.strictEqual(parser.namedFunctionImports['debounce as bouncer'], 'ellib');
+    assert.strictEqual(parser.namedFunctionImports['y'], 'hot-new-module');
     assert.strictEqual(parser.namespaceImports['vscode'], 'vscode');
     assert.strictEqual(parser.stringImports[0], 'code.js');
     assert.strictEqual(parser.braces[0], '{ ');
