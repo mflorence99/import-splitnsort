@@ -5,6 +5,7 @@ import { NamedImport } from 'typescript-parser';
 import { NamespaceImport } from 'typescript-parser';
 import { Position } from 'vscode';
 import { Range } from 'vscode';
+import { TextEdit } from 'vscode';
 import { StringImport } from 'typescript-parser';
 import { SymbolSpecifier } from 'typescript-parser';
 import { TypescriptParser } from 'typescript-parser';
@@ -32,6 +33,17 @@ export class Parser {
 
   /** ctor */
   constructor(private src: string) { }
+
+  /** Make an edit to replace imports */
+  static makeEdit(src: string): Promise<TextEdit[]> {
+    return new Promise((resolve, reject) => {
+      const parser = new Parser(src);
+      parser.parse().then(() => {
+        const imports = parser.produce();
+        resolve((imports.length > 0)? [TextEdit.replace(parser.range, imports)] : []);
+      });
+    });
+  }
 
   /** Parse the source, extracting the imports */
   parse(): Promise<any> {
