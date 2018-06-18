@@ -2,7 +2,7 @@
   "name": "import-splitnsort",
   "displayName": "Split'n'Sort Imports",
   "description": "An opinionated extension to split and sort imports into one export per import.",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "galleryBanner": {
     "color": "#424242",
     "theme": "dark"
@@ -26,8 +26,7 @@
   ],
   "activationEvents": [
     "onCommand:extension.import-splitnsort",
-    "onLanguage:typescript",
-    "onLanguage:typescriptreact"
+    "onLanguage:typescript"
   ],
   "main": "./out/extension",
   "contributes": {

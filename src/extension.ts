@@ -39,17 +39,23 @@ function onSave() {
   }
 }
 
+// @see https://github.com/mflorence99/import-splitnsort/issues/2
+
 function splitAndSort() {
-  Parser.makeEdits(window.activeTextEditor.document.getText())
-    .then((edits: TextEdit[]) => {
-      if (edits.length > 0) {
-        const range = edits[0].range;
-        const imports = edits[0].newText;
-        window.activeTextEditor.edit(edit => edit.replace(range, imports));
-      }
-    });
+  const editor = window.activeTextEditor;
+  if (editor.document.languageId === 'typescript') {
+    Parser.makeEdits(editor.document.getText())
+      .then((edits: TextEdit[]) => {
+        if (edits.length > 0) {
+          const range = edits[0].range;
+          const imports = edits[0].newText;
+          editor.edit(edit => edit.replace(range, imports));
+        }
+      });
+  }
 }
 
 function splitAndSortOnSave(event: TextDocumentWillSaveEvent) {
-  event.waitUntil(Parser.makeEdits(event.document.getText()));
+  if (event.document.languageId === 'typescript')
+    event.waitUntil(Parser.makeEdits(event.document.getText()));
 }
