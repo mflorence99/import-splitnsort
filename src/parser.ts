@@ -81,12 +81,12 @@ export class Parser {
 
   /** Produce sorted import statements */
   produce(): string {
-    const stmts = this.produceNamespace()
+    const stmts = this.produceString()
+      .concat(this.produceNamespace())
       .concat(this.produceNamedClass())
       .concat(this.produceNamedFunction())
       .concat(this.produceDefault())
-      .concat(this.produceExternal())
-      .concat(this.produceString());
+      .concat(this.produceExternal());
     // NOTE: if there are any imports at all, there'll be an initial blank line
     return (stmts.length > 0)? stmts.slice(1).join('\n') : '';
   }
