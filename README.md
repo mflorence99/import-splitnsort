@@ -48,6 +48,10 @@ Of course, it is very rare for any code to use all these different `import` type
 
 ## Release Notes
 
+### 1.0.5
+
+Change sort order so string imports come first
+
 ### 1.0.4
 
 Extension activating for non-TypeScript files
