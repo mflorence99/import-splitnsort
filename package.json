@@ -1,34 +1,14 @@
 {
-  "name": "import-splitnsort",
-  "displayName": "Split'n'Sort Imports",
-  "description": "An opinionated extension to split and sort imports into one export per import.",
-  "version": "1.0.5",
-  "galleryBanner": {
-    "color": "#424242",
-    "theme": "dark"
-  },
-  "bugs": {
-    "url": "https://github.com/mflorence99/import-splitnsort/issues"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/mflorence99/import-splitnsort.git"
-  },
-  "icon": "icon.png",
-  "publisher": "mflo999",
-  "engines": {
-    "vscode": "^1.24.0"
-  },
-  "homepage": "https://github.com/mflorence99/import-splitnsort/blob/master/README.md",
-  "license": "MIT",
-  "categories": [
-    "Programming Languages"
-  ],
   "activationEvents": [
     "onCommand:extension.import-splitnsort",
     "onLanguage:typescript"
   ],
-  "main": "./out/extension",
+  "bugs": {
+    "url": "https://github.com/mflorence99/import-splitnsort/issues"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
   "contributes": {
     "commands": [
       {
@@ -37,23 +17,20 @@
       }
     ],
     "configuration": {
-      "title": "Split'n'sort imports configuration",
       "properties": {
         "import-splitnsort.on-save": {
-          "type": "boolean",
           "default": true,
-          "description": "Automatically split'n'sort imports on save."
+          "description": "Automatically split'n'sort imports on save.",
+          "type": "boolean"
         }
-      }
+      },
+      "title": "Split'n'sort imports configuration"
     }
   },
-  "scripts": {
-    "vscode:prepublish": "npm run compile",
-    "compile": "tsc -p ./",
-    "watch": "tsc -watch -p ./",
-    "postinstall": "node ./node_modules/vscode/bin/install",
-    "test": "npm run compile && node ./node_modules/vscode/bin/test"
+  "dependencies": {
+    "typescript-parser": "^2.4.0"
   },
+  "description": "An opinionated extension to split and sort imports into one export per import.",
   "devDependencies": {
     "@types/mocha": "^2.2.42",
     "@types/node": "^7.0.43",
@@ -62,7 +39,30 @@
     "typescript": "^2.6.1",
     "vscode": "^1.1.6"
   },
-  "dependencies": {
-    "typescript-parser": "^2.4.0"
-  }
+  "displayName": "Split'n'Sort Imports",
+  "engines": {
+    "vscode": "^1.24.0"
+  },
+  "galleryBanner": {
+    "color": "#424242",
+    "theme": "dark"
+  },
+  "homepage": "https://github.com/mflorence99/import-splitnsort/blob/master/README.md",
+  "icon": "icon.png",
+  "license": "MIT",
+  "main": "./out/extension",
+  "name": "import-splitnsort",
+  "publisher": "mflo999",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mflorence99/import-splitnsort.git"
+  },
+  "scripts": {
+    "compile": "tsc -p ./",
+    "postinstall": "node ./node_modules/vscode/bin/install",
+    "test": "npm run compile && node ./node_modules/vscode/bin/test",
+    "vscode:prepublish": "npm run compile",
+    "watch": "tsc -watch -p ./"
+  },
+  "version": "1.0.5"
 }
