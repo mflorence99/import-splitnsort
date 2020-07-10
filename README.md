@@ -1,5 +1,7 @@
 # import-splitnsort
 
+> This project has been deprecated by [eslint-plugin-import-splitnsort](https://github.com/mflorence99/eslint-plugin-import-splitnsort).
+
 My first, very idiosyncratic VS Code extension that perhaps only I will ever use! There are many excellent import sorters available -- [sort-imports](https://marketplace.visualstudio.com/items?itemName=amatiasq.sort-imports) for example -- but `import-splitnsort` is opinionated:
 
 * imports that reference multiple exports can be *organized* but they can't really be *sorted* without splitting them up, one per line
